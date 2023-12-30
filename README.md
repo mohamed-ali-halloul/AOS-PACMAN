@@ -25,12 +25,16 @@ Suivez ces instructions pour obtenir une copie du projet sur votre machine local
 1. Clonez le dépôt sur votre machine locale :
    ```bash
    git clone https://github.com/mohamed-ali-halloul/AOS-PACMAN/jeu-pacman.git
-   #Changer de répertoire
+   #Changer de répertoire 2 fois!
    cd pacman
+   cd pacman
+   
    #Installez les dépendances :
    npm install
+   
    #Démarrez le serveur de développement :
    npm run start
+   
   Visitez http://localhost:1234 dans votre navigateur web pour jouer à Pac-Man.
 
   ### LICENSE
