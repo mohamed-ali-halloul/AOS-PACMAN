@@ -2,7 +2,7 @@
 
 ## Description
 Le jeu Pac-Man est une implémentation simple du jeu d'arcade classique Pac-Man en utilisant React.
-Il a été réalisé par 3 étudiantes en Master 2 Miage spécialisé en Ingénierie Logiciel pour le Web
+Il a été réalisé par 3 étudiants en Master 2 Miage spécialisé en Ingénierie Logiciel pour le Web
 Ce jeu fournit des services dans l'API avec les méthodes CRUD
 
 
