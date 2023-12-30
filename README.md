@@ -33,3 +33,6 @@ Suivez ces instructions pour obtenir une copie du projet sur votre machine local
    npm start
   Visitez http://localhost:3000 dans votre navigateur web pour jouer à Pac-Man.
 
+  ### LICENSE
+Ce projet est sous licence MIT.
+
