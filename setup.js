@@ -1,5 +1,7 @@
+// Constantes pour la taille de la grille et la taille des cellules
 export const GRID_SIZE = 20;
 export const GRID_SIZE_2 = 20;
+// Directions de déplacement avec les touches fléchées
 export const CELL_SIZE = 20;
 export const DIRECTIONS = {
     ArrowLeft: {
@@ -44,11 +46,11 @@ export const DIRECTIONS_2 = {
     ArrowDown: {
         code: 40,
         movement: GRID_SIZE_2,
-        // rotation: 90
+        rotation: 90,
     }
 };
 
-
+// Types d'objets utilisés dans le jeu
 export const OBJECT_TYPE = {
     BLANK: 'blank',
     WALL: 'wall',
@@ -64,7 +66,7 @@ export const OBJECT_TYPE = {
     GHOSTLAIR: 'lair'
 };
 
-// Lookup array for classes
+// Tableau de recherche des classes utilisées dans le jeu
 export const CLASS_LIST = [
     OBJECT_TYPE.BLANK,
     OBJECT_TYPE.WALL,
@@ -77,7 +79,7 @@ export const CLASS_LIST = [
     OBJECT_TYPE.PACMAN,
     OBJECT_TYPE.GHOSTLAIR
 ];
-
+// Disposition initiale du niveau représentée sous forme de tableau
 // prettier-ignore
 export const LEVEL = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
