@@ -139,4 +139,4 @@ testShouldMoveMethod();
 testGetNextMoveMethod();
 
 // Exporter la classe Pacman
-export default Pacman;c
+export default Pacman;
