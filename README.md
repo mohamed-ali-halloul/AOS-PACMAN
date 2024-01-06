@@ -12,7 +12,7 @@ Ce jeu fournit des services dans l'API avec les méthodes CRUD
 - Les pilules de puissance donnent à Pac-Man la capacité de manger les fantômes.
 
 ## Technologies Utilisées
-- React
+- React.js, Javascript
 - HTML, CSS
 
 ## Mise en Route
