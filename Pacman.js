@@ -1,143 +1,80 @@
-// Importing constants from setup.js
-import { OBJECT_TYPE, DIRECTIONS, } from './setup';
+import { OBJECT_TYPE, DIRECTIONS } from './setup';
 
-// Pacman class definition
+
 class Pacman {
-    // Constructor for Pacman
-    constructor(speed, startPos, lives = 3) {
-        this.pos = startPos; // Initial position
-        this.speed = speed; // Speed of Pacman
-        this.dir = null; // Direction of movement
-        this.timer = 0; // Timer for movement
-        this.powerPill = false; // Flag indicating if Pacman has power pill
-        this.rotation = true; // Flag indicating if rotation is enabled
-        this.lives = lives;
+    // Constructeur de Pacman
+    constructor(vitesse, positionInitiale) {
+        this.pos = positionInitiale; // Position initiale
+        this.vitesse = vitesse; // Vitesse de Pacman
+        this.dir = null; // Direction du déplacement
+        this.timer = 0; // Minuterie pour le déplacement
+        this.powerPill = false; // Indicateur indiquant si Pacman a une pilule de puissance
+        this.rotation = true; // Indicateur indiquant si la rotation est activée
     }
 
-    // Method to check if Pacman should move
+    // Méthode pour vérifier si Pacman doit se déplacer
     shouldMove() {
-        if (!this.dir) return false;
+        // Ne pas se déplacer avant qu'une touche ne soit pressée
+        if (!this.dir) return;
 
-        if (this.timer === this.speed) {
+        if (this.timer === this.vitesse) {
             this.timer = 0;
             return true;
         }
         this.timer++;
     }
 
-
-    // Method to get the next move of Pacman
+    // Méthode pour obtenir le prochain déplacement de Pacman
     getNextMove(objectExist) {
         let nextMovePos = this.pos + this.dir.movement;
 
-        // Check for collision with a wall or ghost lair
+        // Vérifier la collision avec un mur ou la cachette des fantômes
         if (
             objectExist(nextMovePos, OBJECT_TYPE.WALL) ||
             objectExist(nextMovePos, OBJECT_TYPE.GHOSTLAIR)
         ) {
-            nextMovePos = this.pos; // Reset position if collision
+            nextMovePos = this.pos; // Réinitialiser la position en cas de collision
         }
 
-        // Return an object with the updated next move position and direction
+        // Retourner un objet avec la nouvelle position de déplacement mise à jour et la direction
         return { nextMovePos, direction: this.dir };
     }
 
-    // Method to define Pacman's move
+    // Méthode pour définir le déplacement de Pacman
     makeMove() {
         const classesToRemove = [OBJECT_TYPE.PACMAN];
         const classesToAdd = [OBJECT_TYPE.PACMAN];
 
-        // Return an object with classes to remove and classes to add
+        // Retourner un objet avec les classes à supprimer et les classes à ajouter
         return { classesToRemove, classesToAdd };
     }
 
-    // Method to set the new position of Pacman
+    // Méthode pour définir la nouvelle position de Pacman
     setNewPos(nextMovePos) {
         this.pos = nextMovePos;
     }
 
-    // Method to handle keyboard input for Pacman
-    handleKeyInput(e, objectExist) {
+    // Méthode pour gérer l'entrée au clavier pour Pacman
+    handleKeyInput = (e, objectExist) => {
         let dir;
 
-        // Check if the key pressed is an arrow key
+        // Vérifier si la touche pressée est une touche de flèche
         if (e.keyCode >= 37 && e.keyCode <= 40) {
             dir = DIRECTIONS[e.key];
         } else {
-            return; // Do nothing if a non-arrow key is pressed
+            return; // Ne rien faire si une touche autre que les flèches est pressée
         }
 
-        // Calculate the next move position
+        // Calculer la prochaine position de déplacement
         const nextMovePos = this.pos + dir.movement;
 
-        // Check if the next move collides with a wall
+        // Vérifier si le prochain déplacement entre en collision avec un mur
         if (objectExist(nextMovePos, OBJECT_TYPE.WALL)) return;
 
-        // Set the direction for Pacman
+        // Définir la direction pour Pacman
         this.dir = dir;
-    }
-    handleCollision(gameBoard, gameOver) {
-        console.log('Handling collision. Lives before:', this.lives);
-        this.lives--;
-
-        if (this.lives <= 0) {
-            // Trigger game over logic here
-            console.log('Game over!');
-            gameOver(this, gameBoard);
-        } else {
-            // Reset Pacman's position
-            console.log('Resetting position.');
-            gameBoard.resetPacmanPosition(this);
-        }
-
-        console.log('Lives after:', this.lives);
-    }
+    };
 }
 
-// Test 1: Pac-Man creation test
-const testPacmanCreation = () => {
-    const pacman = new Pacman(1, 0); // Adjust the initial properties as needed
-    console.log('Test 1: Pac-Man creation test');
-    console.log('Pacman object:', pacman);
-};
-
-// Test 2: Testing the shouldMove method
-const testShouldMoveMethod = () => {
-    const pacman = new Pacman(1, 0); // Adjust the initial properties as needed
-    console.log('Test 2: Testing the shouldMove method');
-
-    // Case 1: direction is null
-    pacman.dir = null;
-    console.log('Case 1 - ShouldMove:', pacman.shouldMove()); // Expected: false
-
-    // Case 2: timer reaches speed
-    pacman.dir = { movement: 1 }; // Set a direction for testing
-    pacman.timer = pacman.speed;
-    console.log('Case 2 - ShouldMove:', pacman.shouldMove()); // Expected: true
-};
-
-// Test 3: Testing the getNextMove method
-const testGetNextMoveMethod = () => {
-    const pacman = new Pacman(1, 0); // Adjust the initial properties as needed
-    console.log('Test 3: Testing the getNextMove method');
-
-    // Case 1: next move is not blocked
-    pacman.dir = { movement: 1 }; // Set a direction for testing
-    const result1 = pacman.getNextMove(() => false); // Mock objectExist function
-    console.log('Case 1 - Next Move Result:', result1);
-
-    // Case 2: next move is blocked
-    const result2 = pacman.getNextMove(() => true); // Mock objectExist function
-    console.log('Case 2 - Next Move Result:', result2);
-};
-
-// Add more test functions for the remaining methods...
-
-// Run the tests
-testPacmanCreation();
-testShouldMoveMethod();
-testGetNextMoveMethod();
-// Call other test functions...
-
-// Export the Pacman class
+// Exporter la classe Pacman
 export default Pacman;
