@@ -1,50 +1,41 @@
-// Importing necessary modules and assets
+// Importation des modules et ressources nécessaires
 import { LEVEL, LEVEL_2, OBJECT_TYPE, GRID_SIZE_2, DIRECTIONS_2 } from './setup';
 import { randomMovement } from './ghostmoves';
 // Classes
 import GameBoard from './GameBoard';
 import Pacman from './Pacman';
 import Ghost from './Ghost';
-// Sounds
+// Sons
 import soundDot from './sounds/munch.wav';
 import soundPill from './sounds/pill.wav';
 import soundGameStart from './sounds/game_start.wav';
 import soundGameOver from './sounds/death.wav';
 import soundGhost from './sounds/eat_ghost.wav';
-// Dom Elements
+// Éléments DOM
 const gameGrid = document.querySelector('#game');
 const scoreTable = document.querySelector('#score');
 const startButton = document.querySelector('#start-button');
 const nextLevelButton = document.querySelector('#next-level-button');
-// Game constants
+// Constantes du jeu
 const POWER_PILL_TIME = 10000; // ms
 const GLOBAL_SPEED = 80; // ms
 const gameBoard = GameBoard.createGameBoard(gameGrid, LEVEL);
-const TOTAL_LEVELS = 2; // Set the total number of levels here
+const TOTAL_LEVELS = 2; // Définir le nombre total de niveaux ici
 
-let currentLevel = 1; // Initialize the current level
-// Initial setup
-let score = 0;
-let timer = null;
-let gameWin = false;
-let powerPillActive = false;
-let powerPillTimer = null;
-let lives = 2;
-
-
-
-
-
-
-
+let currentLevel = 1; // Initialiser le niveau actuel
+// Configuration initiale
+let score = 0; // Score du joueur
+let timer = null; // Minuterie de la boucle de jeu
+let gameWin = false; // Indicateur de victoire du jeu
+let powerPillActive = false; // Indicateur de l'activation de la pilule de puissance
+let powerPillTimer = null; // Minuterie de la pilule de puissance
+let lives = 2; // Nombre de vies initiales du joueur
 
 // --- AUDIO --- //
 function playAudio(audio) {
     const soundEffect = new Audio(audio);
     soundEffect.play();
 }
-
-
 
 
 // --- GAME CONTROLLER --- //
@@ -59,55 +50,53 @@ function gameOver(pacman, _grid) {
 
     clearInterval(timer);
 
-
-    // Decrement lives
+    // Décrémenter le nombre de vies
     lives--;
 
     updateVisualLives(lives);
 
-    // Check if the game is over
+    // Vérifier si le jeu est terminé
     if (lives <= 0) {
-        // Trigger game over logic here
+        // Déclencher la logique de fin de jeu ici
         console.log('Game over!');
-        // You may want to add additional game over logic here if needed
+        // Vous pouvez ajouter une logique de fin de jeu supplémentaire ici si nécessaire
     } else {
-        // Reset Pacman's position
-        console.log('Resetting position.');
+        // Réinitialiser la position de Pacman
+        console.log('Réinitialisation de la position.');
         gameBoard.resetPacmanPosition(pacman);
-        // Show start button
+        // Afficher le bouton de démarrage
         startButton.classList.remove('hide');
     }
 
-    // Update lives display
+    // Mettre à jour l'affichage des vies
     // updateLivesDisplay(lives);
-    // Show start button
+    // Afficher le bouton de démarrage
     startButton.classList.remove('hide');
 }
 
 function updateVisualLives(lives) {
     const lifeDivs = document.querySelectorAll('.life');
-    console.log('Updating visual lives. Lives:', lives);
+    console.log('Mise à jour visuelle des vies. Vies :', lives);
     lifeDivs.forEach((lifeDiv, index) => {
         if (index < lives) {
-            // Show the div for remaining lives
+            // Afficher la division pour les vies restantes
             lifeDiv.classList.remove('hidden');
         } else {
-            // Hide the div for lost lives
+            // Masquer la division pour les vies perdues
             lifeDiv.classList.add('hidden');
         }
     });
-
-
 }
 
+
 function checkCollision(pacman, ghosts, updateVisualLives) {
-    // Check if Pacman collides with ghosts
+    // Vérifier si Pacman entre en collision avec des fantômes
     const collidedGhost = ghosts.find((ghost) => pacman.pos === ghost.pos);
     // updateLivesDisplay(lives);
 
     if (collidedGhost) {
         if (pacman.powerPill) {
-            // If Pacman has power pill, eat ghost
+            // Si Pacman a une pilule de puissance, manger le fantôme
             playAudio(soundGhost);
             gameBoard.removeObject(collidedGhost.pos, [
                 OBJECT_TYPE.GHOST,
@@ -117,10 +106,10 @@ function checkCollision(pacman, ghosts, updateVisualLives) {
             collidedGhost.pos = collidedGhost.startPos;
             score += 100;
         } else {
-            // If Pacman does not have power pill, game over
+            // Si Pacman n'a pas de pilule de puissance, c'est la fin du jeu
             pacman.handleCollision(gameBoard, gameOver, updateVisualLives);
 
-            // Add a class to life1 when pacman.pos is equal to ghost.pos
+            // Ajouter une classe à life1 lorsque pacman.pos est égale à ghost.pos
             if (pacman.lives === 2) {
                 const lifeElement = document.querySelector('#life3');
                 if (lifeElement) {
@@ -148,25 +137,25 @@ function checkCollision(pacman, ghosts, updateVisualLives) {
 
 function gameLoop(pacman, ghosts) {
 
-    // 1. Move Pacman
+    // 1. Déplacer Pacman
     gameBoard.moveCharacter(pacman);
-    // 2. Check Ghost collision on the old positions
+    // 2. Vérifier la collision des fantômes aux anciennes positions
     checkCollision(pacman, ghosts);
-    // 3. Move ghosts
+    // 3. Déplacer les fantômes
     ghosts.forEach((ghost) => gameBoard.moveCharacter(ghost));
-    // 4. Do a new ghost collision check on the new positions
+    // 4. Effectuer une nouvelle vérification de collision des fantômes aux nouvelles positions
     checkCollision(pacman, ghosts);
-    // 5. Check if Pacman eats a dot
+    // 5. Vérifier si Pacman mange un point
     if (gameBoard.objectExist(pacman.pos, OBJECT_TYPE.DOT)) {
         playAudio(soundDot);
 
         gameBoard.removeObject(pacman.pos, [OBJECT_TYPE.DOT]);
-        // Remove a dot
+        // Retirer un point
         gameBoard.dotCount--;
-        // Add Score
+        // Ajouter des points au score
         score += 10;
     }
-    // 6. Check if Pacman eats a power pill
+    // 6. Vérifier si Pacman mange une pilule de puissance
     if (gameBoard.objectExist(pacman.pos, OBJECT_TYPE.PILL)) {
         playAudio(soundPill);
 
@@ -181,34 +170,31 @@ function gameLoop(pacman, ghosts) {
             POWER_PILL_TIME
         );
     }
-    // 7. Change ghost scare mode depending on power pill
+    // 7. Changer le mode de peur des fantômes en fonction de la pilule de puissance
     if (pacman.powerPill !== powerPillActive) {
         powerPillActive = pacman.powerPill;
         ghosts.forEach((ghost) => (ghost.isScared = pacman.powerPill));
     }
-    // 8. Check if all dots have been eaten
+    // 8. Vérifier si tous les points ont été mangés
     if (gameBoard.dotCount === 0) {
         if (currentLevel === TOTAL_LEVELS) {
-            // If it's the last level, trigger game win
+            // S'il s'agit du dernier niveau, déclencher la victoire
             gameWin = true;
             gameOver(pacman, gameGrid);
         } else {
-            // Increment the current level
+            // Incrémenter le niveau actuel
             currentLevel++;
 
-            // Show the "Next Level" button
+            // Afficher le bouton "Niveau suivant"
             nextLevelButton.classList.remove('hide');
 
-            // Clear the game loop timer
+            // Effacer la minuterie de la boucle de jeu
             clearInterval(timer);
         }
     }
 
-    // 9. Show new score
+    // 9. Afficher le nouveau score
     scoreTable.innerHTML = score;
-
-
-
 }
 
 
@@ -216,39 +202,39 @@ function gameLoop(pacman, ghosts) {
 
 
 
-// Initialize game
+// Initialiser le jeu
 startButton.addEventListener('click', startGame);
 
 function startGame() {
-    // Play the game start sound
+    // Jouer le son de début de jeu
     playAudio(soundGameStart);
 
-    // Reset game state
+    // Réinitialiser l'état du jeu
     gameWin = false;
     powerPillActive = false;
     score = 0;
 
-    // Show all life elements
+    // Afficher tous les éléments de vie
     const allLifeElements = document.querySelectorAll('.life');
     allLifeElements.forEach((lifeElement) => {
         lifeElement.classList.remove('hidden');
         lifeElement.classList.add('showing-live');
     });
-    // Hide the start button
+    // Masquer le bouton de démarrage
     startButton.classList.add('hide');
 
-    // Create the game grid
+    // Créer la grille de jeu
     gameBoard.createGrid(LEVEL);
 
-    // Initialize Pacman
+    // Initialiser Pacman
     const pacman = new Pacman(2, 287);
     gameBoard.addObject(287, [OBJECT_TYPE.PACMAN]);
-    // Listen for key input to control Pacman
+    // Écouter l'entrée clavier pour contrôler Pacman
     document.addEventListener('keydown', (e) =>
         pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard))
     );
 
-    // Initialize Ghosts
+    // Initialiser les fantômes
     const ghosts = [
         new Ghost(5, 188, randomMovement, OBJECT_TYPE.BLINKY),
         new Ghost(4, 209, randomMovement, OBJECT_TYPE.PINKY),
@@ -256,24 +242,23 @@ function startGame() {
         new Ghost(2, 251, randomMovement, OBJECT_TYPE.CLYDE)
     ];
     // updateLivesDisplay(lives);
-    // Gameloop
+    // Boucle de jeu
     timer = setInterval(() => gameLoop(pacman, ghosts), GLOBAL_SPEED);
 }
 
 function nextLevel() {
-    // Update the grid size and create the new game board
+    // Mettre à jour la taille de la grille et créer le nouveau plateau de jeu
     gameBoard.createGrid(currentLevel === 1 ? LEVEL_2 : LEVEL_2, currentLevel === 1 ? GRID_SIZE_2 : GRID_SIZE_2);
-    // Reset other game-related variables if needed
+    // Réinitialiser d'autres variables liées au jeu si nécessaire
     score = 0;
     gameWin = false;
     powerPillActive = false;
 
-    // Create Pacman and ghosts for the new level
+    // Créer Pacman et les fantômes pour le nouveau niveau
     const pacman = new Pacman(2, 287);
     gameBoard.addObject(287, [OBJECT_TYPE.PACMAN]);
     document.addEventListener('keydown', (e) => {
         const directions = currentLevel === 1 ? directions : DIRECTIONS_2;
-
 
         pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard), directions)
     });
@@ -285,24 +270,24 @@ function nextLevel() {
         new Ghost(2, 251, randomMovement, OBJECT_TYPE.CLYDE)
     ];
 
-    // Start the game loop for the new level
+    // Démarrer la boucle de jeu pour le nouveau niveau
     timer = setInterval(() => gameLoop(pacman, ghosts), GLOBAL_SPEED);
 }
 
 
 
 
-// Initialize game
+// Initialiser le jeu
 startButton.addEventListener('click', startGame);
 
 
 
 
 
-// uncomment later
+// décommenter plus tard
 nextLevelButton.addEventListener('click', () => {
-    // Hide the "Next Level" button
+    // Masquer le bouton "Niveau suivant"
     nextLevelButton.classList.add('hide');
-    // Move to the next level
+    // Passer au niveau suivant
     nextLevel();
 });
