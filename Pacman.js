@@ -94,10 +94,10 @@ class Pacman {
     }
 }
 
-// Test 1 : Test de création de Pac-Man
+// Test 1 : Test de création de Pacman
 const testPacmanCreation = () => {
     const pacman = new Pacman(1, 0); // Adjust the initial properties as needed
-    console.log('Test 1: Pac-Man creation test');
+    console.log('Test 1: Pacman creation test');
     console.log('Pacman object:', pacman);
 };
 
