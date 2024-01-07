@@ -3,7 +3,7 @@ import { OBJECT_TYPE, DIRECTIONS } from './setup';
 
 describe('Pacman Tests', () => {
     
-    //Vérifie que l'instance de la class Pacman est correctement avec les propriétés initiales attendues  
+    //Vérifie que l'instance de la class Pacman est correcte avec les propriétés initiales attendues  
     test('Pac-Man is correctly created with initial properties', () => {
         const pacman = new Pacman(1, 0); 
 
@@ -36,16 +36,16 @@ describe('Pacman Tests', () => {
     // Test de la méthode getNextMove 
     test('getNextMove returns the correct new position and direction', () => {
         const pacman = new Pacman(1, 0); 
-        pacman.dir = { movement: 1 }; // Direction pour les tests : 1
+        pacman.dir = { movement: 1 }; //simulation d'un déplacement vers la droite
 
-        const result = pacman.getNextMove(() => false); // Fonction objectExist simulée
+        const result = pacman.getNextMove(() => false); // Fonction objectExist simulée qui retoune toujours false = pas de collision
 
         expect(result).toEqual({ nextMovePos: 1, direction: { movement: 1 } });
     });
 
     test('getNextMove handles collision with a wall', () => {
         const pacman = new Pacman(1, 0); 
-        pacman.dir = { movement: 1 };  // Direction pour les tests : 1
+        pacman.dir = { movement: 1 }; 
 
         const result = pacman.getNextMove(() => true); // Fonction objectExist simulée
 
@@ -55,17 +55,17 @@ describe('Pacman Tests', () => {
     // Ici shouldMove renvoie true après que le minuteur atteint la vitesse
 
     test('shouldMove returns true after the timer reaches speed', () => {
-        const pacman = new Pacman(1, 0); 
-        pacman.dir = { movement: 1 }; // Direction pour les tests : 1
-        pacman.timer = pacman.speed;
+        const pacman = new Pacman(1, 0); //instance avec vitesse=1 et position intialisé à 0
+        pacman.dir = { movement: 1 }; // simulation d'un déplacement vers la droite
+        pacman.timer = pacman.speed; // le minuteur a atteint la vitesse
 
         expect(pacman.shouldMove()).toBe(true);
     });
 
-    // Test de la méthode getNextMove
+    // vérifie si la méthode getNextMove renvoie correctement la nouvelle position et la direction lorsque le prochain mouvement n'entraîne pas de collision avec un mur
     test('getNextMove returns the correct new position and direction', () => {
         const pacman = new Pacman(1, 0); 
-        pacman.dir = { movement: 1 }; // Direction pour les tests : 1
+        pacman.dir = { movement: 1 }; 
 
         const result = pacman.getNextMove(() => false); // Fonction objectExist simulée
 
