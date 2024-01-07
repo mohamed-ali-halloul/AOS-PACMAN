@@ -20,5 +20,62 @@ describe('Pacman Tests', () => {
 
         expect(pacman.shouldMove()).toBe(false); //vérifie que l'appel à shouldMove avec une direction nulle renvoie false
     });
-    
+    test('shouldMove returns true after the timer reaches speed', () => {
+        const pacman = new Pacman(1, 0); 
+        pacman.dir = { movement: 1 }; 
+        pacman.timer = pacman.speed;
+
+        expect(pacman.shouldMove()).toBe(true);
+    });
+
+    // Test de la méthode getNextMove 
+    test('getNextMove returns the correct new position and direction', () => {
+        const pacman = new Pacman(1, 0); 
+        pacman.dir = { movement: 1 }; // Direction pour les tests : 1
+
+        const result = pacman.getNextMove(() => false); // Fonction objectExist simulée
+
+        expect(result).toEqual({ nextMovePos: 1, direction: { movement: 1 } });
+    });
+
+    test('getNextMove handles collision with a wall', () => {
+        const pacman = new Pacman(1, 0); 
+        pacman.dir = { movement: 1 };  // Direction pour les tests : 1
+
+        const result = pacman.getNextMove(() => true); // Fonction objectExist simulée
+
+        expect(result).toEqual({ nextMovePos: 0, direction: { movement: 1 } });
+    });
+
+    // Ici shouldMove renvoie true après que le minuteur atteint la vitesse
+
+    test('shouldMove returns true after the timer reaches speed', () => {
+        const pacman = new Pacman(1, 0); 
+        pacman.dir = { movement: 1 }; // Direction pour les tests : 1
+        pacman.timer = pacman.speed;
+
+        expect(pacman.shouldMove()).toBe(true);
+    });
+
+    // Test de la méthode getNextMove
+    test('getNextMove returns the correct new position and direction', () => {
+        const pacman = new Pacman(1, 0); 
+        pacman.dir = { movement: 1 }; // Direction pour les tests : 1
+
+        const result = pacman.getNextMove(() => false); // Fonction objectExist simulée
+
+        expect(result).toEqual({ nextMovePos: 1, direction: { movement: 1 } });
+    });
+
+    //ici la méthode getNextMove gère la collision avec un mur
+    test('getNextMove handles collision with a wall', () => {
+        const pacman = new Pacman(1, 0); 
+        pacman.dir = { movement: 1 }; // Direction pour les tests : 1
+
+        const result = pacman.getNextMove(() => true); // Fonction objectExist simulée
+
+        expect(result).toEqual({ nextMovePos: 0, direction: { movement: 1 } });
+    });
+
+    // on peut ajouter d'autre méthodes pour êre à 100% de nos tests
 });
