@@ -21,4 +21,7 @@ describe('Pacman Tests', () => {
         expect(pacman.shouldMove()).toBe(false); //vérifie que l'appel à shouldMove avec une direction nulle renvoie false
     });
     
+    
+
 });
+
