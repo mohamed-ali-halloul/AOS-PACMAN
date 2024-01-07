@@ -23,6 +23,7 @@
     },
     "jest": {
         "testEnvironment": "node",
+        "testMatch": ["**/*.testUnitaire.js"],
         "transform": {
             "^.+\\.js$": "babel-jest"
         }

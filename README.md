@@ -23,7 +23,7 @@ Suivez ces instructions pour obtenir une copie du projet sur votre machine local
 
 ### Installation
 1. Clonez le dépôt sur votre machine locale :
-   ```bash
+   
    git clone https://github.com/mohamed-ali-halloul/AOS-PACMAN/jeu-pacman.git
    #Changer de répertoire 2 fois!
    cd pacman
@@ -36,6 +36,21 @@ Suivez ces instructions pour obtenir une copie du projet sur votre machine local
    npm run start
    
   Visitez http://localhost:1234 dans votre navigateur web pour jouer à Pac-Man.
+
+2. Nos Tests unitaires sont executés avec Jest dans le fichier pacman.testUnitaire. js.  Pour executer les tests sur votre répertoire, assurez-vous que Jest est installé dans votre projet.  Si ce n'est pas le cas, vous pouvez l'installer en utilisant la commande suivante sur votre terminal :
+  
+  npm install --save-dev jest
+  
+  ### Vérifier dans votre fichier package.json dans la section "script" l'existance de la commande jest et que Jest est correctement installé 
+
+  ### Une fois que Jest est correctement installé et configuré, vous pouvez Faire :
+   npm test
+
+  ### En cas de problème, vérifier que toutes les dépendances de tests jest sont sur votre fichier package.json.  Si tel n'est pas le cas, installé jest dans sa globalité et faire :
+   npm install -g jest
+  ### Sinon vérifier la dénomination de votre fichier de test et le chémin testMatch associé
+
+
 
   ### LICENSE
 Ce projet est sous licence MIT.
