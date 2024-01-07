@@ -17,10 +17,10 @@ const scoreTable = document.querySelector('#score');
 const startButton = document.querySelector('#start-button');
 const nextLevelButton = document.querySelector('#next-level-button');
 // Constantes du jeu
-const POWER_PILL_TIME = 10000; // ms
-const GLOBAL_SPEED = 80; // ms
+const POWER_PILL_TIME = 10000; // Durée d'activation de la pilule de puissance en ms
+const GLOBAL_SPEED = 80; // Vitesse globale du jeu en ms
 const gameBoard = GameBoard.createGameBoard(gameGrid, LEVEL);
-const TOTAL_LEVELS = 2; // Définir le nombre total de niveaux ici
+const TOTAL_LEVELS = 2; // le nombre total de niveaux 
 
 let currentLevel = 1; // Initialiser le niveau actuel
 // Configuration initiale
@@ -32,6 +32,7 @@ let powerPillTimer = null; // Minuterie de la pilule de puissance
 let lives = 2; // Nombre de vies initiales du joueur
 
 // --- AUDIO --- //
+//Définit une fonction pour jouer des effets sonores dans le jeu
 function playAudio(audio) {
     const soundEffect = new Audio(audio);
     soundEffect.play();
@@ -96,7 +97,7 @@ function checkCollision(pacman, ghosts, updateVisualLives) {
 
     if (collidedGhost) {
         if (pacman.powerPill) {
-            // Si Pacman a une pilule de puissance, manger le fantôme
+            // Si Pacman a une pilule de puissance => manger le fantôme
             playAudio(soundGhost);
             gameBoard.removeObject(collidedGhost.pos, [
                 OBJECT_TYPE.GHOST,
