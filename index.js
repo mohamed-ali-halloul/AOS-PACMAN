@@ -60,7 +60,7 @@ function gameOver(pacman, _grid) {
     if (lives <= 0) {
         // Déclencher la logique de fin de jeu ici
         console.log('Game over!');
-        // Vous pouvez ajouter une logique de fin de jeu supplémentaire ici si nécessaire
+        
     } else {
         // Réinitialiser la position de Pacman
         console.log('Réinitialisation de la position.');
