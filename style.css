@@ -21,13 +21,24 @@ body {
 }
 
 form {
-    position: relative;
-    top: 300px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 24px;
+    position: absolute;
+    z-index: 1; 
+    top: 420px;
+    left:520px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
 }
+img {
+    max-width: 100%;
+    height: auto;
+    position: absolute;
+    top: 250px;
+    left: 430px;
+    z-index: -1;
+}
+
 
 label {
     display: block;
