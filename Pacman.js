@@ -22,6 +22,7 @@ class Pacman {
             return true;
         }
         this.timer++;
+        return false;  //pour les tests afin de dire que shouldMove returns false when timer is less than speed (2 ms) 
     }
 
 

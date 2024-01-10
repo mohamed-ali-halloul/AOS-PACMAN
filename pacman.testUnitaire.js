@@ -82,6 +82,79 @@ describe('Pacman Tests', () => {
         expect(result).toEqual({ nextMovePos: 0, direction: { movement: 1 } });
     });
 
-    // on peut ajouter d'autre méthodes pour êre à 100% de nos tests
+    // on peut ajouter d'autres méthodes pour être à 100% de nos tests @jo
 
+    test('makeMove returns the correct classes to add and remove', () => {
+        const pacman = new Pacman(1, 0);
+        const result = pacman.makeMove();
+    
+        expect(result.classesToRemove).toEqual([OBJECT_TYPE.PACMAN]);
+        expect(result.classesToAdd).toEqual([OBJECT_TYPE.PACMAN]);
+    });
+    
+    test('shouldMove returns false when direction is null', () => {
+        const pacman = new Pacman(1, 0);
+        pacman.dir = null;
+    
+        expect(pacman.shouldMove()).toBe(false);
+    });
+    
+    test('shouldMove returns false when timer is less than speed', () => {
+        const pacman = new Pacman(2, 0); // Adjust the speed for the test
+        pacman.dir = { movement: 1 };
+        pacman.timer = 1; // Set the timer less than speed
+    
+        expect(pacman.shouldMove()).toBe(false);
+    });
+    
+    test('shouldMove returns true when timer equals speed', () => {
+        const pacman = new Pacman(2, 0); // Adjust the speed for the test
+        pacman.dir = { movement: 1 };
+        pacman.timer = 2; // Set the timer equal to speed
+    
+        expect(pacman.shouldMove()).toBe(true);
+    });
+    
+    test('shouldMove resets timer to 0 after reaching speed', () => {
+        const pacman = new Pacman(2, 0); // Adjust the speed for the test
+        pacman.dir = { movement: 1 };
+        pacman.timer = 2; // Set the timer equal to speed
+    
+        expect(pacman.shouldMove()).toBe(true);
+        expect(pacman.timer).toBe(0);
+    });
+    
+// Test de la méthode handleKeyInput
+test('handleKeyInput sets the correct direction when arrow key is pressed', () => {
+    const pacman = new Pacman(1, 0);
+    const mockObjectExist = jest.fn(() => false); // Fonction objectExist simulée
+
+    // Appeler la méthode handleKeyInput avec un événement de touche flèche vers la droite
+    pacman.handleKeyInput({ keyCode: 39, key: 'ArrowRight' }, mockObjectExist);
+
+    // Vérifier que la direction a été correctement définie
+    expect(pacman.dir).toEqual(DIRECTIONS['ArrowRight']);
+});
+
+test('handleKeyInput does nothing when a non-arrow key is pressed', () => {
+    const pacman = new Pacman(1, 0);
+    const mockObjectExist = jest.fn(() => false); // Fonction objectExist simulée
+
+    // Appeler la méthode handleKeyInput avec un événement de touche non flèche
+    pacman.handleKeyInput({ keyCode: 65, key: 'A' }, mockObjectExist);
+
+    // Vérifier que la direction n'a pas été définie
+    expect(pacman.dir).toBeNull();
+});
+
+test('handleKeyInput does nothing when collision with wall', () => {
+    const pacman = new Pacman(1, 0);
+    const mockObjectExist = jest.fn(() => true); // Fonction objectExist simulée
+
+    // Appeler la méthode handleKeyInput avec un événement de touche flèche vers la droite
+    pacman.handleKeyInput({ keyCode: 39, key: 'ArrowRight' }, mockObjectExist);
+
+    // Vérifier que la direction n'a pas été définie en raison d'une collision avec un mur
+    expect(pacman.dir).toBeNull();
+});
 
