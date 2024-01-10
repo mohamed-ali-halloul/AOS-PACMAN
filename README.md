@@ -49,9 +49,13 @@ Suivez ces instructions pour obtenir une copie du projet sur votre machine local
   ### En cas de problème, vérifier que toutes les dépendances de tests jest sont sur votre fichier package.json.  Si tel n'est pas le cas, installé jest dans sa globalité et faire :
    npm install -g jest
   ### Sinon vérifier la dénomination de votre fichier de test et le chémin testMatch associé
-
-###Pour vérifier la couverture de notre code 
+  
+  ### Pour run les services du backend, veuillez installer axios :
+   npm install axios
+   
+   ### Pour vérifier la couverture de notre code 
    npx jest --coverage
+
 
 
   ### LICENSE
