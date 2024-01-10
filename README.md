@@ -12,7 +12,7 @@ Ce jeu fournit des services dans l'API avec les méthodes CRUD
 - Les pilules de puissance donnent à Pac-Man la capacité de manger les fantômes.
 
 ## Technologies Utilisées
-- React.js, Javascript
+- React.js, Javascript et Parceljs
 - HTML, CSS
 
 ## Mise en Route
@@ -50,6 +50,8 @@ Suivez ces instructions pour obtenir une copie du projet sur votre machine local
    npm install -g jest
   ### Sinon vérifier la dénomination de votre fichier de test et le chémin testMatch associé
 
+###Pour vérifier la couverture de notre code 
+   npx jest --coverage
 
 
   ### LICENSE
