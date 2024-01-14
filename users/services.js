@@ -11,9 +11,13 @@ const saveScore = (id,data) => {
 
     return http.put(`/${id}`, data);
   };
+const deleteUser=(id)=> {
+    return http.delete(`/${id}`);
+}
 const UserService ={
     login,    
-    saveScore
+    saveScore, 
+    deleteUser
 };
 
 export default UserService;
