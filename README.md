@@ -1,5 +1,5 @@
 # AOS-PACMAN
-# 🕹️ AOS-PACMAN
+#  AOS-PACMAN
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/mohamed-ali-halloul/AOS-PACMAN?style=flat-square)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mohamed-ali-halloul/AOS-PACMAN?style=flat-square)
@@ -10,7 +10,7 @@
 
 ---
 
-## 📖 Table of Contents
+##  Table of Contents
 
 - [About](#about)
 - [Features](#features)
@@ -21,13 +21,13 @@
 
 ---
 
-## 📌 About
+##  About
 
 **AOS-PACMAN** is a Pac-Man game developed in the context of an Operating Systems (AOS) course. The project explores core OS concepts such as process management, concurrency, and inter-process communication through the lens of a classic arcade game.
 
 ---
 
-## ✨ Features
+##  Features
 
 - Classic Pac-Man gameplay mechanics
 - Ghost AI with basic pathfinding
@@ -36,7 +36,7 @@
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -57,7 +57,7 @@ cd AOS-PACMAN
 
 ---
 
-## 🎮 Usage
+##  Usage
 
 ```bash
 # Compile the project
@@ -69,7 +69,7 @@ make
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
 
@@ -81,10 +81,10 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ---
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-<p align="center">Made with ❤️ by <a href="https://github.com/mohamed-ali-halloul">Mohamed Ali Halloul</a></p>
+<p align="center">Made by <a href="https://github.com/mohamed-ali-halloul">Mohamed Ali Halloul</a></p>
