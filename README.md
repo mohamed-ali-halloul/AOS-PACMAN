@@ -1,4 +1,3 @@
-# AOS-PACMAN
 #  AOS-PACMAN
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/mohamed-ali-halloul/AOS-PACMAN?style=flat-square)
